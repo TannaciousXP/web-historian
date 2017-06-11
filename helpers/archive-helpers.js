@@ -39,8 +39,13 @@ exports.isUrlInList = function(url, callback) {
 };
 
 exports.addUrlToList = function(url, callback) {
-  fs.writeFile(this.paths.list, url, function(error) {
-    return callback();
+  fs.appendFile(this.paths.list, url, function(error) {
+    if (error) {
+      throw error;
+    }
+    if (callback) {
+      callback();
+    }
   });
 };
 
